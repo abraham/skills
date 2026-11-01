@@ -16,8 +16,9 @@ Every Firebase deploy from GitHub Actions authenticates with `abraham/firebase-w
 4. Environment URL: every deploy job has an `environment`, so give it a `url` (see the `environment-url` skill).
    - Live: `https://<project-id>.web.app`, or the custom domain if the site has one.
    - Preview channels: the URL from the deploy step's output.
-5. If no deploy workflow exists, create `.github/workflows/deploy.yml`: deploy live on push to the default branch, and to a preview channel on same-repo pull requests when the project has Hosting.
-6. Rerun `gh actions-lock` after changing `uses:` lines (see the `actions-lock` skill).
+5. Concurrency: one deploy per target at a time (see the `deploy-concurrency` skill).
+6. If no deploy workflow exists, create `.github/workflows/deploy.yml`: deploy live on push to the default branch, and to a preview channel on same-repo pull requests when the project has Hosting.
+7. Rerun `gh actions-lock` after changing `uses:` lines (see the `actions-lock` skill).
 
 ## Example live job
 
@@ -27,6 +28,9 @@ deploy:
   environment:
     name: production
     url: https://my-project.web.app
+  concurrency:
+    group: deploy-production
+    cancel-in-progress: false
   permissions:
     contents: read
     id-token: write
@@ -55,6 +59,9 @@ preview:
   environment:
     name: preview
     url: ${{ steps.deploy.outputs.url }}
+  concurrency:
+    group: deploy-preview-${{ github.event.pull_request.number }}
+    cancel-in-progress: true
   permissions:
     contents: read
     id-token: write

@@ -1,6 +1,6 @@
 ---
 name: project-conventions
-description: 'Audit a project against my standard setup and fix gaps: Node version in package.json with node-version-file, Firebase deploys via abraham/firebase-wif, environment URLs, least-privilege workflow permissions, a single required CI gate job, gh-actions-lock verified in the lint job, Prettier, and npm start running the dev server. Use when setting up a new repo, bringing an old repo up to date, or asked to apply my conventions.'
+description: 'Audit a project against my standard setup and fix gaps: Node version in package.json with node-version-file, Firebase deploys via abraham/firebase-wif, environment URLs, one deploy at a time via concurrency, least-privilege workflow permissions, a single required CI gate job, gh-actions-lock verified in the lint job, Prettier, and npm start running the dev server. Use when setting up a new repo, bringing an old repo up to date, or asked to apply my conventions.'
 ---
 
 # Project conventions
@@ -13,6 +13,7 @@ Check each rule, report which ones already hold, then fix the rest using the lin
 | `engines.node` is the newest LTS, or the newest Firebase-supported major for Cloud Functions code | `package.json` exists                              | `node-version`         |
 | Firebase deploys authenticate with `abraham/firebase-wif`                                         | `firebase.json` or `.firebaserc` exists            | `firebase-deploy`      |
 | Jobs with `environment` set `environment.url` to the deployed app                                 | Workflows set `environment`                        | `environment-url`      |
+| Deploy jobs use a `concurrency` group per target so only one runs at a time                       | Workflows deploy                                   | `deploy-concurrency`   |
 | Every workflow declares least-privilege `permissions`                                             | `.github/workflows` exists                         | `workflow-permissions` |
 | One `<file>-required` job (`ci-required`) needs every other CI job; the ruleset requires only it  | CI has more than one job that should block merging | `ci-gate`              |
 | Files are formatted with Prettier, checked in the `lint` job                                      | Always                                             | `prettier`             |
@@ -22,7 +23,7 @@ Check each rule, report which ones already hold, then fix the rest using the lin
 ## Order
 
 1. `node-version`, `start-script`, `prettier` (package.json changes).
-2. `firebase-deploy`, `environment-url`, `workflow-permissions`, `ci-gate` (workflow changes).
+2. `firebase-deploy`, `environment-url`, `deploy-concurrency`, `workflow-permissions`, `ci-gate` (workflow changes).
 3. `actions-lock` last, since it locks every `uses:` the earlier steps added.
 4. `npm run format` so new and edited files are formatted.
 

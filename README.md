@@ -8,6 +8,7 @@ Personal agent skills for setting up and maintaining my projects.
 | [node-version](skills/node-version/SKILL.md)                 | `engines.node` in `package.json` (newest LTS, or Firebase Functions' newest supported), workflows use `node-version-file`   |
 | [firebase-deploy](skills/firebase-deploy/SKILL.md)           | Firebase deploys through `abraham/firebase-wif`                                                                             |
 | [environment-url](skills/environment-url/SKILL.md)           | Jobs with `environment` set `url` to the deployed app                                                                       |
+| [deploy-concurrency](skills/deploy-concurrency/SKILL.md)     | Deploy jobs share a `concurrency` group per target so only one runs at a time                                               |
 | [workflow-permissions](skills/workflow-permissions/SKILL.md) | Every workflow declares least-privilege `permissions`                                                                       |
 | [ci-gate](skills/ci-gate/SKILL.md)                           | CI with several jobs has one `<file>-required` job (`ci-required`) that needs them all, the only check the ruleset requires |
 | [actions-lock](skills/actions-lock/SKILL.md)                 | `gh-actions-lock` lockfile, verified in the `lint` job                                                                      |
