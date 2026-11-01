@@ -7,6 +7,8 @@ Personal agent skills for setting up and maintaining my projects.
 | [project-conventions](skills/project-conventions/SKILL.md)   | Audits a repo against all of the rules below and applies the others in order                                                |
 | [node-version](skills/node-version/SKILL.md)                 | `engines.node` in `package.json` (newest LTS, or Firebase Functions' newest supported), workflows use `node-version-file`   |
 | [firebase-deploy](skills/firebase-deploy/SKILL.md)           | Firebase deploys through `abraham/firebase-wif`                                                                             |
+| [npm-publish](skills/npm-publish/SKILL.md)                   | npm packages publish from a tag with trusted publishing (OIDC), no `NPM_TOKEN`                                              |
+| [pub-publish](skills/pub-publish/SKILL.md)                   | Dart packages publish to pub.dev from a tag with automated publishing (OIDC), no stored credentials                         |
 | [environment-url](skills/environment-url/SKILL.md)           | Jobs with `environment` set `url` to the deployed app                                                                       |
 | [deploy-concurrency](skills/deploy-concurrency/SKILL.md)     | Deploy jobs share a `concurrency` group per target so only one runs at a time                                               |
 | [workflow-permissions](skills/workflow-permissions/SKILL.md) | Every workflow declares least-privilege `permissions`                                                                       |
