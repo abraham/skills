@@ -42,7 +42,7 @@ Packages publish from `.github/workflows/publish.yaml` on a version tag, authent
              persist-credentials: false
          - uses: actions/setup-node@v7
            with:
-             node-version-file: package.json
+             node-version: lts/*
          - id: version
            run: |
              version=$(node -p "require('./package.json').version")
@@ -55,7 +55,7 @@ Packages publish from `.github/workflows/publish.yaml` on a version tag, authent
 
    - Replace `<name>` with the package name (scoped names stay as is: `@scope/name`).
    - The version step fails the run when the tag doesn't match `package.json`.
-   - Trusted publishing needs npm 11.5.1+ (Node 24+ ships it). If `engines.node` is older, add `- run: npm install -g npm@latest` before publishing.
+   - Publish with the newest LTS (`lts/*`), not the `engines` range; see the `node-version` skill's Libraries section. Trusted publishing needs npm 11.5.1+, which Node 24+ ships.
    - Don't run tests here; CI already passed on the tagged commit. Remove existing test or lint steps from publish workflows.
 
 3. Remove token auth from publish steps: `NODE_AUTH_TOKEN`, `NPM_TOKEN`, `registry-url` added only for token auth, `.npmrc` lines with `_authToken`, and `--provenance` (trusted publishing adds provenance automatically).
