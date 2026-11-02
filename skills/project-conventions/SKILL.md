@@ -11,6 +11,7 @@ Check each rule, report which ones already hold, then fix the rest using the lin
 | ------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ---------------------- |
 | Node version lives in `package.json` `engines.node`; workflows use `node-version-file`            | Node is used                                        | `node-version`         |
 | `engines.node` is the newest LTS, or the newest Firebase-supported major for Cloud Functions code | `package.json` exists                               | `node-version`         |
+| Libraries set `engines.node` to `>=` the oldest supported LTS and test every supported LTS major  | `package.json` is published to npm (not `private`)  | `node-version`         |
 | Firebase deploys authenticate with `abraham/firebase-wif`                                         | `firebase.json` or `.firebaserc` exists             | `firebase-deploy`      |
 | npm packages publish with trusted publishing (OIDC), no `NPM_TOKEN`                               | `package.json` is published to npm (not `private`)  | `npm-publish`          |
 | Dart packages publish to pub.dev with automated publishing (OIDC)                                 | `pubspec.yaml` is published (no `publish_to: none`) | `pub-publish`          |
