@@ -1,16 +1,17 @@
 ---
 name: prettier
-description: 'Set up Prettier formatting in a project: pinned prettier devDependency, .prettierrc.json, .prettierignore, format and format:check scripts, and a format check in the CI lint job. Use when a repo has no Prettier, formatting is inconsistent, or the lint job does not check formatting.'
+description: 'Set up Prettier formatting in a project that has a package.json: pinned prettier devDependency, .prettierrc.json, .prettierignore, format and format:check scripts, and a format check in the CI lint job. Use when a repo with a package.json has no Prettier, formatting is inconsistent, or the lint job does not check formatting. Skip repos without a package.json.'
 ---
 
 # Prettier
 
 All files Prettier understands are formatted with it, and CI fails on unformatted files.
 
+Only for repos that already have a `package.json`. If there is none, stop: don't create one just to add Prettier.
+
 ## Procedure
 
 1. Install, pinned to an exact version: `npm install --save-dev --save-exact prettier`.
-   If the repo has no `package.json` (for example a skills or docs repo), create a minimal private one (`"private": true`) for the dev dependency and scripts.
 2. `.prettierrc.json`, unless the repo already has a Prettier config (keep the existing one and only migrate it to `.prettierrc.json`):
 
    ```json
