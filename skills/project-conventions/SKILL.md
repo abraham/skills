@@ -20,7 +20,7 @@ Check each rule, report which ones already hold, then fix the rest using the lin
 | Deploy jobs use a `concurrency` group per target so only one runs at a time                       | Workflows deploy                                    | `deploy-concurrency`   |
 | Every workflow declares least-privilege `permissions`                                             | `.github/workflows` exists                          | `workflow-permissions` |
 | One `<file>-required` job (`ci-required`) needs every other CI job; the ruleset requires only it  | CI has more than one job that should block merging  | `ci-gate`              |
-| Files are formatted with Prettier, checked in the `lint` job                                      | Always                                              | `prettier`             |
+| Files are formatted with Prettier, checked in the `lint` job                                      | `package.json` exists                               | `prettier`             |
 | `npm start` starts the dev server                                                                 | `package.json` exists                               | `start-script`         |
 | Workflows are locked with `gh-actions-lock`, verified in the `lint` job                           | `.github/workflows` exists                          | `actions-lock`         |
 
@@ -29,7 +29,7 @@ Check each rule, report which ones already hold, then fix the rest using the lin
 1. `node-version`, `node-test`, `start-script`, `prettier` (package.json changes).
 2. `firebase-deploy`, `npm-publish`, `pub-publish`, `environment-url`, `deploy-concurrency`, `workflow-permissions`, `ci-gate` (workflow changes).
 3. `actions-lock` last, since it locks every `uses:` the earlier steps added.
-4. `npm run format` so new and edited files are formatted.
+4. `npm run format` so new and edited files are formatted, if the repo uses Prettier.
 
 ## Report
 
