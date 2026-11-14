@@ -59,7 +59,17 @@ Packages publish from `.github/workflows/publish.yml` on a version tag, authenti
 
    - Replace `<name>` with the package name, and the SDK version with the one CI uses (add the same `env` to CI if it hardcodes a version).
    - pub.dev only accepts publishes from runs triggered by a tag that matches the configured pattern. Add `workflow_dispatch` only if the package's pub.dev Admin page allows it (c2pa_dart does).
-   - Flutter packages: keep `dart-lang/setup-dart` (it sets up the pub.dev token), add `subosito/flutter-action` after it, and use `flutter pub get` / `flutter pub publish --force`.
+   - Flutter packages: drop the `DART_SDK_VERSION` env and replace `dart-lang/setup-dart` with the setup-flutter steps from the `flutter-version` skill followed by `flutter-actions/setup-pubdev-credentials@v1.1` (it sets up the pub.dev OIDC token), and use `flutter pub get` / `flutter pub publish --force`:
+
+     ```yaml
+     - id: flutter-version
+       uses: flutter-actions/setup-flutter/version-file@v5.0
+     - uses: flutter-actions/setup-flutter@v5.0
+       with:
+         version: ${{ steps.flutter-version.outputs.version }}
+     - uses: flutter-actions/setup-pubdev-credentials@v1.1
+     ```
+
    - Several packages in one repo: use a tag pattern per package (`<name>-v{{version}}`) with matching `on.push.tags`, a `working-directory` per package, and publish in dependency order.
 
 3. Remove old credential handling: steps that write `~/.config/dart/pub-credentials.json` or `credentials.json` from a secret, `PUB_CREDENTIALS`/`PUB_TOKEN` env, and third-party publish actions that need them.
