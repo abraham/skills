@@ -1,6 +1,7 @@
 ---
 name: firebase-deploy
 description: 'Set up or fix GitHub Actions deploys for a Firebase project using abraham/firebase-wif (Workload Identity Federation) instead of FIREBASE_TOKEN or service account key secrets. Use when a repo has firebase.json or .firebaserc and needs a deploy workflow, preview channels on pull requests, or a migration off token/key secrets.'
+license: MIT
 argument-hint: 'Optional workflow file to update'
 ---
 

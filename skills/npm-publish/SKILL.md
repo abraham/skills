@@ -1,6 +1,7 @@
 ---
 name: npm-publish
 description: 'Publish npm packages from GitHub Actions with npm trusted publishing (OIDC) instead of an NPM_TOKEN secret. Use when a package.json package is published to npm, when adding a publish or release workflow, or when migrating off NPM_TOKEN / NODE_AUTH_TOKEN.'
+license: MIT
 argument-hint: 'Optional workflow file to update'
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: deploy-concurrency
 description: 'Add a concurrency group to GitHub Actions deploy jobs so only one deploy to an environment runs at a time. Use when a workflow deploys (Firebase, Pages, npm publish, cloud), when deploys can overlap or finish out of order, or when adding a deploy job.'
+license: MIT
 argument-hint: 'Optional workflow file to update'
 ---
 

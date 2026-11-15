@@ -1,6 +1,7 @@
 ---
 name: ci-gate
 description: 'Add a single gate job to GitHub Actions CI that needs every other check job, so the repository ruleset requires only that one status check and jobs can be added or renamed in code. Use when CI has several jobs, when required status checks list many jobs, when a renamed job blocks merges, or when adding jobs to CI.'
+license: MIT
 argument-hint: 'Optional workflow file to update'
 ---
 

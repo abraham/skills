@@ -1,6 +1,7 @@
 ---
 name: actions-lock
 description: 'Pin GitHub Actions dependencies with the gh-actions-lock CLI (github/gh-actions-lock) and verify .github/workflows/actions.lock in the CI lint job. Use when adding a workflow lockfile, after changing any uses: line in .github/workflows, or when the lint job is missing lockfile verification.'
+license: MIT
 ---
 
 # GitHub Actions lockfile

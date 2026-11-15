@@ -1,6 +1,7 @@
 ---
 name: pub-publish
 description: 'Publish Dart and Flutter packages to pub.dev from GitHub Actions with automated publishing (OIDC) instead of stored credentials. Use when a pubspec.yaml package is published to pub.dev, when adding a publish or release workflow for a Dart package, or when migrating off PUB_CREDENTIALS / credentials.json secrets.'
+license: MIT
 argument-hint: 'Optional workflow file to update'
 ---
 
