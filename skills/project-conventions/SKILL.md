@@ -1,6 +1,6 @@
 ---
 name: project-conventions
-description: 'Audit a project against my standard setup and fix gaps: Node version in package.json with node-version-file, Flutter version in pubspec.yaml with setup-flutter, node:test for small Node libraries, Firebase deploys via abraham/firebase-wif, npm publishing with OIDC trusted publishing, pub.dev publishing with OIDC, environment URLs, one deploy at a time via concurrency, Playwright browsers matching the job's OS with caches keyed on it, least-privilege workflow permissions, a single required CI gate job, gh-actions-lock verified in the lint job, Prettier, and npm start running the dev server. Use when setting up a new repo, bringing an old repo up to date, or asked to apply my conventions.'
+description: 'Audit a project against my standard setup and fix gaps: Node version in package.json with node-version-file, Flutter version in pubspec.yaml with setup-flutter, node:test for small Node libraries, Firebase deploys via abraham/firebase-wif, npm publishing with OIDC trusted publishing, pub.dev publishing with OIDC, environment URLs, one deploy at a time via concurrency, Playwright browsers matching the OS of each job with caches keyed on it, least-privilege workflow permissions, a single required CI gate job, gh-actions-lock verified in the lint job, Prettier, and npm start running the dev server. Use when setting up a new repo, bringing an old repo up to date, or asked to apply my conventions.'
 ---
 
 # Project conventions
