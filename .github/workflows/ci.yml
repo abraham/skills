@@ -23,5 +23,6 @@ jobs:
           node-version-file: package.json
       - run: gh extension install github/gh-actions-lock --pin v0.4.1
       - run: gh actions-lock --verify
+      - run: gh skill publish --dry-run
       - run: npm ci
       - run: npm run format:check
