@@ -1,6 +1,6 @@
 ---
 name: node-version
-description: 'Set the Node.js version in package.json engines and make GitHub Actions read it with actions/setup-node node-version-file. Libraries support and test every supported LTS major. Use when adding or upgrading Node, fixing hard-coded node-version in workflows, removing .nvmrc/.node-version duplication, setting the Node runtime for Firebase Cloud Functions, or dropping an end-of-life Node major from a library.'
+description: 'Set one Node.js version for the whole project in every package.json engines and make GitHub Actions read it with actions/setup-node node-version-file. Libraries support and test every supported LTS major. Use when adding or upgrading Node, fixing hard-coded node-version in workflows, when package.json files in one repo use different Node versions, removing .nvmrc/.node-version duplication, setting the Node runtime for Firebase Cloud Functions, or dropping an end-of-life Node major from a library.'
 argument-hint: 'Optional package.json to update'
 ---
 
@@ -8,13 +8,15 @@ argument-hint: 'Optional package.json to update'
 
 `package.json` `engines.node` is the single source of truth for the Node version. Workflows read it with `node-version-file`; nothing else repeats the number. Libraries are the exception: they support every LTS major that hasn't reached end of life and test each one in a CI matrix.
 
+A project uses one Node major everywhere. Every `package.json` in the repo (root, `functions/`, Hosting site, tooling, workspaces) sets the same `engines.node`, so the root doesn't run Node 26 while `functions/` runs Node 22. Pick the version once for the whole repo, then apply it to every file.
+
 ## Pick the version
 
 - Default: the newest LTS major. Look it up, don't guess:
   `curl -s https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts != false)][0].version'`
-- Firebase Cloud Functions: a `package.json` whose code deploys to Cloud Functions (usually `functions/package.json`, or whatever `firebase.json` `functions.source` points at) uses the newest Node major that Firebase supports instead. Check the "Set Node.js version" section of https://firebase.google.com/docs/functions/manage-functions. Firebase only accepts a bare major here (`"22"`), not a range.
+- Firebase Cloud Functions: if any `package.json` deploys to Cloud Functions (usually `functions/package.json`, or whatever `firebase.json` `functions.source` points at), the whole repo uses the newest Node major that Firebase supports, when that's older than the newest LTS. Check the "Set Node.js version" section of https://firebase.google.com/docs/functions/manage-functions. Firebase only accepts a bare major (`"22"`), not a range, so every `package.json` in the repo uses that bare major too.
   If `firebase.json` sets `functions.runtime` (`nodejs22`), it wins over `engines`; keep the two in agreement or remove `runtime`.
-- Other `package.json` files in a Firebase repo (Hosting site, tooling at the root) still use the newest LTS.
+- Other constraints work the same way: a deploy target or dependency that can't run the newest LTS lowers the version for the whole repo, not just its own `package.json`.
 - Libraries (packages published to npm) support every LTS major that hasn't reached end of life, not just the newest. List them:
   `curl -s https://raw.githubusercontent.com/nodejs/Release/main/schedule.json | jq -r --arg today "$(date +%F)" 'to_entries[] | select(.value.lts and .value.lts <= $today and .value.end > $today) | .key | ltrimstr("v")'`
 
@@ -26,7 +28,7 @@ argument-hint: 'Optional package.json to update'
 }
 ```
 
-- Apps and sites: bare major of the newest LTS (`"24"`).
+- Apps and sites: bare major of the version picked above (`"24"`), the same in every `package.json` in the repo.
 - Libraries: `">="` the oldest supported LTS (`">=22"` when 22, 24, and 26 are supported), so consumers on newer Node don't get engine warnings.
 - Keep `@types/node` on the same major as `engines` when it's a dependency (the oldest supported LTS for libraries, so code doesn't use newer APIs).
 
@@ -41,7 +43,7 @@ In every `.github/workflows/*.yml` job that uses `actions/setup-node`:
 ```
 
 - Remove `node-version:` (it overrides `node-version-file`) and any `matrix.node` that only exists to pick one version.
-- Point at the right file for subdirectory projects: `node-version-file: functions/package.json`. Add `cache-dependency-path` for that directory's lockfile when caching is used.
+- Point at the right file for subdirectory projects: `node-version-file: functions/package.json`. Since every `package.json` has the same `engines.node`, jobs that touch several directories can read any of them. Add `cache-dependency-path` for that directory's lockfile when caching is used.
 - Keep the setup-node major the repo already uses if it's current; otherwise use the latest (`gh release view --repo actions/setup-node --json tagName -q .tagName`).
 
 ### Libraries
@@ -78,6 +80,7 @@ A range in `engines` makes `node-version-file` resolve to whatever matching vers
 
 ## Verify
 
+- Every non-library `package.json` has the same `engines.node`: `git ls-files '*package.json' | xargs -I{} jq -r '"\(.engines.node) {}"' {}`.
 - `grep -rn "node-version:" .github/workflows` returns nothing, except in libraries: `${{ matrix.node }}` in the test job and `lts/*` elsewhere.
 - Libraries: the test matrix equals the lookup command's output and `engines.node` is `>=` its lowest entry.
 - `npm install` still succeeds, then run the project's build/test scripts.
