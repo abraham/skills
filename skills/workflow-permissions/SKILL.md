@@ -1,6 +1,7 @@
 ---
 name: workflow-permissions
 description: 'Give every GitHub Actions workflow an explicit least-privilege GITHUB_TOKEN permissions block. Use when a workflow has no permissions key, uses write-all or broad defaults, when adding a job that needs id-token, pull-requests, pages, packages, or other write access, or when hardening workflows.'
+license: MIT
 argument-hint: 'Optional workflow file to update'
 ---
 

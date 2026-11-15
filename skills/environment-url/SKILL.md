@@ -1,6 +1,7 @@
 ---
 name: environment-url
 description: 'Add url to GitHub Actions jobs that set environment, so deployments link to the deployed app. Use when a workflow job has environment without url, when adding a deploy job, or when deployment links are missing on pull requests and the repo Environments page.'
+license: MIT
 argument-hint: 'Optional workflow file to update'
 ---
 

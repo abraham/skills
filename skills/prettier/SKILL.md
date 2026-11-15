@@ -1,6 +1,7 @@
 ---
 name: prettier
 description: 'Set up Prettier formatting in a project that has a package.json: pinned prettier devDependency, .prettierrc.json, .prettierignore, format and format:check scripts, and a format check in the CI lint job. Use when a repo with a package.json has no Prettier, formatting is inconsistent, or the lint job does not check formatting. Skip repos without a package.json.'
+license: MIT
 ---
 
 # Prettier

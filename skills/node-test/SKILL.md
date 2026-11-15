@@ -1,6 +1,7 @@
 ---
 name: node-test
 description: 'Test small Node.js libraries with the built-in node:test runner and node:assert instead of Jest or Vitest. Use when a small npm library uses Jest or Vitest, when adding tests to a Node library, or when trimming test devDependencies.'
+license: MIT
 argument-hint: 'Optional package.json to update'
 ---
 

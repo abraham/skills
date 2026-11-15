@@ -1,6 +1,7 @@
 ---
 name: flutter-version
 description: 'Set the Flutter version in pubspec.yaml environment.flutter and make GitHub Actions install it with flutter-actions/setup-flutter and its version-file action. Use when a Flutter project has workflows, when upgrading Flutter, when workflows hard-code a Flutter version or use subosito/flutter-action, or when removing .fvmrc/.tool-versions duplication.'
+license: MIT
 argument-hint: 'Optional pubspec.yaml to update'
 ---
 

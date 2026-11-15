@@ -1,6 +1,7 @@
 ---
 name: playwright
 description: 'Run Playwright in GitHub Actions: install browsers with npx playwright install --with-deps or use the mcr.microsoft.com/playwright image at the installed version, and key any browser cache on the OS the job runs in (from /etc/os-release, including job containers), the architecture, and the Playwright version. Use when a workflow runs Playwright, caches ms-playwright, keys a Playwright cache on runner.os, runs Playwright in a container, or when cached browsers fail to launch.'
+license: MIT
 argument-hint: 'Optional workflow file to update'
 ---
 

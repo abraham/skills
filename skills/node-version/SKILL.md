@@ -1,6 +1,7 @@
 ---
 name: node-version
 description: 'Set one Node.js version for the whole project in every package.json engines and make GitHub Actions read it with actions/setup-node node-version-file. Libraries support and test every supported LTS major. Use when adding or upgrading Node, fixing hard-coded node-version in workflows, when package.json files in one repo use different Node versions, removing .nvmrc/.node-version duplication, setting the Node runtime for Firebase Cloud Functions, or dropping an end-of-life Node major from a library.'
+license: MIT
 argument-hint: 'Optional package.json to update'
 ---
 

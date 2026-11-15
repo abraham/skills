@@ -1,6 +1,7 @@
 ---
 name: start-script
 description: 'Add or fix the npm start script so it starts the local development server. Use when package.json has no start script, start runs a production build or something else, or the dev server is only reachable through a dev/serve script.'
+license: MIT
 ---
 
 # npm start runs the dev server
