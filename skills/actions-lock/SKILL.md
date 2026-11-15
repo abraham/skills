@@ -25,7 +25,7 @@ For CLI details, modes, and troubleshooting, use the upstream `gh-actions-lock` 
        - uses: actions/checkout@v7
          with:
            persist-credentials: false
-       - run: gh extension install github/gh-actions-lock --pin v0.4.0
+       - run: gh extension install github/gh-actions-lock --pin v0.4.1
        - run: gh actions-lock --verify
        # other lint steps (format:check, etc.)
    ```
